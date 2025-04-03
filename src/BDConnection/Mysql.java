@@ -3,6 +3,8 @@ package BDConnection;
 import java.sql.*;
 
 public class Mysql {
+
+    //Funcion para conectar con una base de datos local
     public static Connection ConectarBD(String bd, String user, String pass){
         Connection conexion;
 
@@ -21,7 +23,7 @@ public class Mysql {
 
         return conexion;
     }
-
+    //Funcion para desconectarse de la base de datos
     public static void Desconexion(Connection cb){
         try {
             cb.close();

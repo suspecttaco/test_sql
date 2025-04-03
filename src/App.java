@@ -3,19 +3,21 @@ import java.sql.*;
 import BDConnection.Mysql;
 
 public class App {
+    //Conexion con la bd local con credenciales
     static Connection bd = Mysql.ConectarBD("bd_inventario", "root", "Salsa1508");
 
     public static void main(String[] args) throws Exception {
-
+        //Inserccion de filas
         insertarDato("carro",5);
         insertarDato("guiso",5);
-
+        //Consulta de filas
         consultarDato("guiso");
         consultarDato("carro");
-
+        //Pausa para revisar
         System.in.read();
-
+        //Actualizacion de filas
         actualizarDato("guiso", 4);
+        //Eliminacion de filas
         eliminarDato("carro");
 
         consultarDato("guiso");
@@ -23,9 +25,11 @@ public class App {
         Mysql.Desconexion(bd);
     }
 
+    //Funcion para insertar filas
     public static void insertarDato(String nom, int cantidad) {
 
         try {
+            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades
             String query = "insert into producto (nombre,cantidad) values ('" + nom + "','" + cantidad + "')";
             Statement st = bd.createStatement();
             int rowsAffected = st.executeUpdate(query);
@@ -36,8 +40,10 @@ public class App {
         }
     }
 
+    //Funcion para actualizar filas
     public static void actualizarDato(String nom, int cantidad){
         try {
+            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades
             String query = "update producto set cantidad = '" + cantidad + "' where nombre = '" + nom + "'";
             Statement st = bd.createStatement();
             int rowsAffected = st.executeUpdate(query);
@@ -48,8 +54,10 @@ public class App {
         }
     }
 
+    //Funcion para eliminar filas
     public static void eliminarDato(String nom){
         try {
+            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades, igual "nombre" es la columna dentro de mi tabla
             String query = "delete from producto where nombre = '" + nom + "'";
             Statement st = bd.createStatement();
             int rowsAffected = st.executeUpdate(query);
@@ -60,8 +68,10 @@ public class App {
         }
     }
 
+    //Funcion para consultar filas filas
     public static void consultarDato(String nom){
         try {
+            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades, igual las columnas.
             String query = "select * from producto where nombre = '" + nom + "'";
             Statement st = bd.createStatement();
             ResultSet resultSet = st.executeQuery(query);
