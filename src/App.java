@@ -89,7 +89,7 @@ public class App {
 
     public static void insertWithProcedure(String nom, int cant){
         try {
-            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades
+            //procedimiento "insertarProductos" hecho dentro de mySQL
             String query = "call insertarProductos('" + nom + "',"+cant+")";
             Statement st = bd.createStatement();
             int rowsAffected = st.executeUpdate(query);
