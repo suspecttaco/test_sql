@@ -10,6 +10,10 @@ public class App {
         //Inserccion de filas
         insertarDato("carro",5);
         insertarDato("guiso",5);
+
+        //Insertar con procedimineto
+        insertWithProcedure("carro",5);
+        insertWithProcedure("guiso",5);
         //Consulta de filas
         consultarDato("guiso");
         consultarDato("carro");
@@ -77,6 +81,19 @@ public class App {
             ResultSet resultSet = st.executeQuery(query);
             resultSet.next();
             System.out.println("id: " + resultSet.getString("id_producto") +" nombre: " + resultSet.getString("nombre") + " cantidad: " + resultSet.getString("cantidad"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertWithProcedure(String nom, int cant){
+        try {
+            //"producto" es mi tabla dentro de mi bd, cambienla segun sus necesidades
+            String query = "call insertarProductos('" + nom + "',"+cant+")";
+            Statement st = bd.createStatement();
+            int rowsAffected = st.executeUpdate(query);
+            System.out.println("Success!! rows affected: "+ rowsAffected);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
